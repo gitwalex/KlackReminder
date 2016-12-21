@@ -1,0 +1,5 @@
+include ':klackreminder'
+include 'awlib'
+project(':awlib').projectDir =
+        new File('D:\\alexw\\AndroidStudio\\AWLib\\awlib')
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/KlackReminder.iml" filepath="$PROJECT_DIR$/KlackReminder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../AWLib/awlib/awlib.iml" filepath="$PROJECT_DIR$/../AWLib/awlib/awlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/klackreminder/klackreminder.iml" filepath="$PROJECT_DIR$/klackreminder/klackreminder.iml" />
+    </modules>
+  </component>
+</project>

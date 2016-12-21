@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="_id">_id</string>
+    <string name="column_eventID">eventID</string>
+    <string name="column_eventTitle">title</string>
+    <string name="column_eventBody">body</string>
+</resources>
