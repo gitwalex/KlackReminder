@@ -39,6 +39,7 @@ public enum DBDefinition implements Parcelable, AWAbstractDBDefinition {
                     , R.string.column_eventID//
                     , R.string.column_eventTitle//
                     , R.string.column_eventBody//
+                    , R.string.column_eventInserted//
             };
         }
 

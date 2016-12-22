@@ -27,10 +27,24 @@
 
             </intent-filter>
         </activity>
+        <!-- Receiver fuer Boot-Completed Message -->
+        <receiver
+            android:name=".events.EventSetAlarm"
+            android:enabled="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <service
+            android:name=".events.KlackReminderService"
+            android:label="@string/klackeventservice"
+            />
 
         <provider
             android:name="de.aw.awlib.database.AWContentProvider"
-            android:authorities="de.aw.klackremindercontentprovider"/>
+            android:authorities="de.aw.klackremindercontentprovider"
+            android:exported="false"/>
 
     </application>
 

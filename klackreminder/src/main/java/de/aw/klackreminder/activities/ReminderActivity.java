@@ -23,7 +23,8 @@ public class ReminderActivity extends AppCompatActivity {
             if (extras != null) {
                 String reminderBody = extras.getString(EXTRA_TEXT);
                 if (reminderBody != null) {
-                    new Reminder(this, mCalendarID, reminderBody);
+                    String text = new Reminder(this).insertReminder(mCalendarID, reminderBody);
+                    Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
                 }
             }
         } else {

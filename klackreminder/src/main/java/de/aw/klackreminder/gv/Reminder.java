@@ -1,10 +1,9 @@
 package de.aw.klackreminder.gv;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.Parcel;
-import android.widget.Toast;
+
+import java.sql.Date;
 
 import de.aw.awlib.gv.AWApplicationGeschaeftsObjekt;
 import de.aw.awlib.gv.CalendarReminder;
@@ -22,31 +21,23 @@ public class Reminder extends AWApplicationGeschaeftsObjekt {
         super(context, tbd, id);
     }
 
-    public Reminder(Context context, long calendarID, String reminderBody) {
-        super(context, tbd);
+    public String insertReminder(long calendarID, String reminderBody) {
         String[] newHeader = reminderBody.split(linefeed);
-        CalendarReminder reminder = new CalendarReminder(context);
+        CalendarReminder reminder = new CalendarReminder(getContext());
         long id = reminder.createDailyEvent(calendarID, "KlackReminder: " + newHeader[1],
                 reminderBody);
+        String text;
         if (id != -1) {
             put(R.string.column_eventID, id);
             put(R.string.column_eventTitle, newHeader[1]);
             put(R.string.column_eventBody, reminderBody);
+            put(R.string.column_eventInserted, new Date(System.currentTimeMillis()));
             insert(DBHelper.newInstance());
-            createToast("Erinnerung erstellt " + newHeader[1]);
+            text = "Erinnerung erstellt " + newHeader[1];
         } else {
-            createToast("Erinnerung erstellen fehlgeschlagen");
+            text = "Erinnerung erstellen fehlgeschlagen";
         }
-    }
-
-    private void createToast(final String text) {
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                Toast toast1 = Toast.makeText(getContext(), text, Toast.LENGTH_LONG);
-                toast1.show();
-            }
-        });
+        return text;
     }
 
     public Reminder(Context context) {

@@ -10,6 +10,7 @@ import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import de.aw.awlib.R;
 import de.aw.awlib.activities.AWActivityMainScreen;
@@ -60,7 +61,9 @@ public class MainActivity extends AWActivityMainScreen implements AWOnCursorRecy
                                 calendarName.getText().toString()).apply();
                 reminderBody = args.getString(EXTRA_TEXT);
                 if (reminderBody != null) {
-                    new Reminder(MainActivity.this, mCalendarID, reminderBody);
+                    String text = new Reminder(MainActivity.this)
+                            .insertReminder(mCalendarID, reminderBody);
+                    Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
                 }
                 AWFragment f = new ReminderFragment();
                 getSupportFragmentManager().beginTransaction().replace(container, f).commit();

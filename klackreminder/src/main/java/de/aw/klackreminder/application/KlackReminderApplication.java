@@ -8,6 +8,7 @@ import de.aw.awlib.database.AWAbstractDBDefinition;
 import de.aw.awlib.database.AbstractDBHelper;
 import de.aw.klackreminder.database.DBDefinition;
 import de.aw.klackreminder.database.DBHelper;
+import de.aw.klackreminder.events.EventSetAlarm;
 
 /**
  * Created by alex on 21.12.2016.
@@ -22,6 +23,12 @@ public class KlackReminderApplication extends AWApplication {
             dbhelper = new DBHelper(this, null);
         }
         return dbhelper;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        EventSetAlarm.setAlarm(this);
     }
 
     @Override

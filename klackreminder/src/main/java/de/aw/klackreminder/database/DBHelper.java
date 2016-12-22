@@ -43,7 +43,9 @@ public class DBHelper extends AbstractDBHelper {
     @Override
     public int[][] getNonTextColumnItems() {
         return new int[][]{{R.string._id, 'N'}//
-                , {R.string.column_eventID, 'N'}};
+                , {R.string.column_eventInserted, 'D'}//
+                , {R.string.column_eventID, 'N'}}//
+                ;
     }
 
     public static AbstractDBHelper newInstance() {
