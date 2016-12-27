@@ -48,7 +48,7 @@ public class DBHelper extends AbstractDBHelper {
                 ;
     }
 
-    public static AbstractDBHelper newInstance() {
+    public static AbstractDBHelper getInstance() {
         return dbHelper;
     }
 }

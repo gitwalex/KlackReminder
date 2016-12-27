@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import de.aw.awlib.gv.AWApplicationGeschaeftsObjekt;
-import de.aw.awlib.gv.CalendarReminder;
 import de.aw.awlib.recyclerview.AWCursorRecyclerViewFragment;
 import de.aw.klackreminder.R;
 import de.aw.klackreminder.database.DBDefinition;
@@ -28,11 +27,7 @@ public class ReminderFragment extends AWCursorRecyclerViewFragment {
                                            long id) {
         try {
             Reminder reminder = new Reminder(getContext(), id);
-            Long eventID = reminder.getAsLong(R.string.column_eventID);
-            CalendarReminder calendarReminder = new CalendarReminder(getContext());
-            if (calendarReminder.deleteEvent(eventID)) {
-                reminder.delete(DBHelper.getInstance());
-            }
+            reminder.delete(DBHelper.getInstance());
             return true;
         } catch (AWApplicationGeschaeftsObjekt.LineNotFoundException e) {
             e.printStackTrace();
