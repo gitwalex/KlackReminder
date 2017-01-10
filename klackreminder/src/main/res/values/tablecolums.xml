@@ -5,4 +5,5 @@
     <string name="column_eventTitle">title</string>
     <string name="column_eventBody">body</string>
     <string name="column_eventInserted">eventInserted</string>
+    <string name="column_webcontent">webcontent</string>
 </resources>

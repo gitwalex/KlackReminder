@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">KlackReminder</string>
-    <string name="KlackReminder">Interessante Filme oder Serien</string>
-    <string name="klackeventservice">KlackReminderService</string>
+    <string name="btndetails">Details</string>
 </resources>

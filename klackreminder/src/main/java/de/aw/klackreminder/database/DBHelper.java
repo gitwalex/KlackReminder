@@ -10,7 +10,7 @@ import de.aw.awlib.database.AbstractDBHelper;
 import de.aw.klackreminder.R;
 
 /**
- * Created by alex on 21.12.2016.
+ * DBHelper fuer KlackReminder
  */
 public class DBHelper extends AbstractDBHelper {
     private static DBHelper dbHelper;
@@ -18,6 +18,10 @@ public class DBHelper extends AbstractDBHelper {
     public DBHelper(Context context, SQLiteDatabase.CursorFactory cursorFactory) {
         super(context, cursorFactory);
         dbHelper = this;
+    }
+
+    public static AbstractDBHelper getInstance() {
+        return dbHelper;
     }
 
     @Override
@@ -46,9 +50,5 @@ public class DBHelper extends AbstractDBHelper {
                 , {R.string.column_eventInserted, 'D'}//
                 , {R.string.column_eventID, 'N'}}//
                 ;
-    }
-
-    public static AbstractDBHelper getInstance() {
-        return dbHelper;
     }
 }

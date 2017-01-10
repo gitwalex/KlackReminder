@@ -10,7 +10,7 @@ import de.aw.klackreminder.database.DBDefinition;
 import de.aw.klackreminder.database.DBHelper;
 
 /**
- * Created by alex on 21.12.2016.
+ * Klackreminder-Aplication.
  */
 public class KlackReminderApplication extends AWApplication {
     private DBHelper dbhelper;
