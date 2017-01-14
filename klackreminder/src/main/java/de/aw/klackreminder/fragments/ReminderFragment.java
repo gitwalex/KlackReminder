@@ -45,8 +45,9 @@ public class ReminderFragment extends AWDragSwipeRecyclerViewFragment
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position,
-                                 long id) {
+            protected void onSwiped(AWCursorDragDropRecyclerViewAdapter adapter,
+                                    RecyclerView.ViewHolder viewHolder, int direction, int position,
+                                    long id) {
                 try {
                     Reminder reminder = new Reminder(getContext(), id);
                     reminder.delete(DBHelper.getInstance());
