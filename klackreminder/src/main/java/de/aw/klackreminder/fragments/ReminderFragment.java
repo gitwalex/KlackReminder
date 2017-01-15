@@ -22,8 +22,7 @@ import static de.aw.klackreminder.R.id.webView;
 /**
  * Anzeige der vorliegenden Reminder
  */
-public class ReminderFragment extends AWDragSwipeRecyclerViewFragment
-        implements View.OnClickListener {
+public class ReminderFragment extends AWDragSwipeRecyclerViewFragment {
     private static final DBDefinition tbd = DBDefinition.KlackEvents;
     private static final int layout = R.layout.awlib_default_recycler_view;
     private static final int viewHolderLayout = R.layout.reminders;
@@ -31,7 +30,7 @@ public class ReminderFragment extends AWDragSwipeRecyclerViewFragment
             new int[]{R.string.column_eventTitle, R.string.column_eventBody,
                     R.string.column_webcontent};
     private static final int[] viewResIDs =
-            new int[]{R.id.eventTitle, R.id.eventBody, R.id.webView, R.id.btnDetail};
+            new int[]{R.id.eventTitle, R.id.eventBody, R.id.webView};
 
     @NonNull
     @Override
@@ -45,8 +44,7 @@ public class ReminderFragment extends AWDragSwipeRecyclerViewFragment
             }
 
             @Override
-            protected void onSwiped(AWCursorDragDropRecyclerViewAdapter adapter,
-                                    RecyclerView.ViewHolder viewHolder, int direction, int position,
+            protected void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position,
                                     long id) {
                 try {
                     Reminder reminder = new Reminder(getContext(), id);
@@ -70,20 +68,8 @@ public class ReminderFragment extends AWDragSwipeRecyclerViewFragment
                             "utf-8");
                 }
                 return true;
-            case R.id.btnDetail:
-                view.setOnClickListener(this);
-                return true;
             default:
                 return super.onBindView(holder, view, resID, cursor, cursorPosition);
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnDetail:
-                getView().findViewById(R.id.webView).setVisibility(View.VISIBLE);
-                break;
         }
     }
 
@@ -91,6 +77,17 @@ public class ReminderFragment extends AWDragSwipeRecyclerViewFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setIsSwipeable(true);
+    }
+
+    @Override
+    public void onRecyclerItemClick(RecyclerView recyclerView, View view, int position, long id) {
+        View webView = view.findViewById(R.id.webView);
+        if (webView.getVisibility() == View.VISIBLE) {
+            webView.setVisibility(View.GONE);
+        } else {
+            webView.setVisibility(View.VISIBLE);
+        }
+        super.onRecyclerItemClick(recyclerView, view, position, id);
     }
 
     @Override
