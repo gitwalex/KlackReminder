@@ -80,14 +80,14 @@ public class ReminderFragment extends AWDragSwipeRecyclerViewFragment {
     }
 
     @Override
-    public void onRecyclerItemClick(RecyclerView recyclerView, View view, int position, long id) {
+    public void onRecyclerItemClick(View view, int position, long id) {
         View webView = view.findViewById(R.id.webView);
         if (webView.getVisibility() == View.VISIBLE) {
             webView.setVisibility(View.GONE);
         } else {
             webView.setVisibility(View.VISIBLE);
         }
-        super.onRecyclerItemClick(recyclerView, view, position, id);
+        super.onRecyclerItemClick(view, position, id);
     }
 
     @Override
