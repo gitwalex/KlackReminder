@@ -15,13 +15,13 @@ import de.aw.klackreminder.R;
 public class DBHelper extends AbstractDBHelper {
     private static DBHelper dbHelper;
 
+    public static AbstractDBHelper getInstance() {
+        return dbHelper;
+    }
+
     public DBHelper(Context context, SQLiteDatabase.CursorFactory cursorFactory) {
         super(context, cursorFactory);
         dbHelper = this;
-    }
-
-    public static AbstractDBHelper getInstance() {
-        return dbHelper;
     }
 
     @Override
