@@ -7,9 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.webkit.WebView;
 
-import de.aw.awlib.adapters.AWCursorDragDropRecyclerViewAdapter;
+import de.aw.awlib.adapters.AWBaseRecyclerViewAdapter;
 import de.aw.awlib.gv.AWApplicationGeschaeftsObjekt;
-import de.aw.awlib.recyclerview.AWDragSwipeRecyclerViewFragment;
+import de.aw.awlib.recyclerview.AWCursorRecyclerViewFragment;
 import de.aw.awlib.recyclerview.AWLibViewHolder;
 import de.aw.awlib.recyclerview.AWSimpleItemTouchHelperCallback;
 import de.aw.klackreminder.R;
@@ -22,7 +22,7 @@ import static de.aw.klackreminder.R.id.webView;
 /**
  * Anzeige der vorliegenden Reminder
  */
-public class ReminderFragment extends AWDragSwipeRecyclerViewFragment {
+public class ReminderFragment extends AWCursorRecyclerViewFragment {
     private static final DBDefinition tbd = DBDefinition.KlackEvents;
     private static final int layout = R.layout.awlib_default_recycler_view;
     private static final int viewHolderLayout = R.layout.reminders;
@@ -35,7 +35,7 @@ public class ReminderFragment extends AWDragSwipeRecyclerViewFragment {
     @NonNull
     @Override
     protected AWSimpleItemTouchHelperCallback getItemTouchCallback(
-            AWCursorDragDropRecyclerViewAdapter mAdapter) {
+            AWBaseRecyclerViewAdapter mAdapter) {
         return new AWSimpleItemTouchHelperCallback(mAdapter) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
