@@ -2,8 +2,6 @@ package de.aw.klackreminder.fragments;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.webkit.WebView;
 
@@ -11,7 +9,6 @@ import de.aw.awlib.adapters.AWBaseRecyclerViewAdapter;
 import de.aw.awlib.gv.AWApplicationGeschaeftsObjekt;
 import de.aw.awlib.recyclerview.AWCursorRecyclerViewFragment;
 import de.aw.awlib.recyclerview.AWLibViewHolder;
-import de.aw.awlib.recyclerview.AWSimpleItemTouchHelperCallback;
 import de.aw.klackreminder.R;
 import de.aw.klackreminder.database.DBDefinition;
 import de.aw.klackreminder.database.DBHelper;
@@ -22,7 +19,8 @@ import static de.aw.klackreminder.R.id.webView;
 /**
  * Anzeige der vorliegenden Reminder
  */
-public class ReminderFragment extends AWCursorRecyclerViewFragment {
+public class ReminderFragment extends AWCursorRecyclerViewFragment
+        implements AWBaseRecyclerViewAdapter.OnSwipeListener {
     private static final DBDefinition tbd = DBDefinition.KlackEvents;
     private static final int layout = R.layout.awlib_default_recycler_view;
     private static final int viewHolderLayout = R.layout.reminders;
@@ -31,30 +29,6 @@ public class ReminderFragment extends AWCursorRecyclerViewFragment {
                     R.string.column_webcontent};
     private static final int[] viewResIDs =
             new int[]{R.id.eventTitle, R.id.eventBody, R.id.webView};
-
-    @NonNull
-    @Override
-    protected AWSimpleItemTouchHelperCallback getItemTouchCallback(
-            AWBaseRecyclerViewAdapter mAdapter) {
-        return new AWSimpleItemTouchHelperCallback(mAdapter) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
-                                  RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            protected void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position,
-                                    long id) {
-                try {
-                    Reminder reminder = new Reminder(getContext(), id);
-                    reminder.delete(DBHelper.getInstance());
-                } catch (AWApplicationGeschaeftsObjekt.LineNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-    }
 
     @Override
     protected boolean onBindView(AWLibViewHolder holder, View view, int resID, Cursor cursor,
@@ -76,18 +50,24 @@ public class ReminderFragment extends AWCursorRecyclerViewFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setIsSwipeable(true);
+        setOnSwipeListener(this);
     }
 
     @Override
     public void onRecyclerItemClick(View view, int position, long id) {
         View webView = view.findViewById(R.id.webView);
-        if (webView.getVisibility() == View.VISIBLE) {
-            webView.setVisibility(View.GONE);
-        } else {
-            webView.setVisibility(View.VISIBLE);
-        }
+        webView.setVisibility(webView.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
         super.onRecyclerItemClick(view, position, id);
+    }
+
+    @Override
+    public void onSwiped(AWLibViewHolder viewHolder, int direction, int position, long id) {
+        try {
+            Reminder reminder = new Reminder(getContext(), id);
+            reminder.delete(DBHelper.getInstance());
+        } catch (AWApplicationGeschaeftsObjekt.LineNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
