@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 
-import de.aw.awlib.adapters.AWBaseRecyclerViewAdapter;
+import de.aw.awlib.adapters.AWBaseAdapter;
 import de.aw.awlib.gv.AWApplicationGeschaeftsObjekt;
 import de.aw.awlib.recyclerview.AWCursorRecyclerViewFragment;
 import de.aw.awlib.recyclerview.AWLibViewHolder;
@@ -20,7 +20,7 @@ import static de.aw.klackreminder.R.id.webView;
  * Anzeige der vorliegenden Reminder
  */
 public class ReminderFragment extends AWCursorRecyclerViewFragment
-        implements AWBaseRecyclerViewAdapter.OnSwipeListener {
+        implements AWBaseAdapter.OnSwipeListener {
     private static final DBDefinition tbd = DBDefinition.KlackEvents;
     private static final int layout = R.layout.awlib_default_recycler_view;
     private static final int viewHolderLayout = R.layout.reminders;
@@ -54,6 +54,16 @@ public class ReminderFragment extends AWCursorRecyclerViewFragment
     }
 
     @Override
+    public void onItemDismiss(long itemID, int position) {
+        try {
+            Reminder reminder = new Reminder(getContext(), itemID);
+            reminder.delete(DBHelper.getInstance());
+        } catch (AWApplicationGeschaeftsObjekt.LineNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void onRecyclerItemClick(View view, int position, long id) {
         View webView = view.findViewById(R.id.webView);
         webView.setVisibility(webView.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
@@ -62,12 +72,7 @@ public class ReminderFragment extends AWCursorRecyclerViewFragment
 
     @Override
     public void onSwiped(AWLibViewHolder viewHolder, int direction, int position, long id) {
-        try {
-            Reminder reminder = new Reminder(getContext(), id);
-            reminder.delete(DBHelper.getInstance());
-        } catch (AWApplicationGeschaeftsObjekt.LineNotFoundException e) {
-            e.printStackTrace();
-        }
+        getAdapter().setPendingDeleteItemPosition(position);
     }
 
     @Override
